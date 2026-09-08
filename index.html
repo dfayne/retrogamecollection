@@ -30,14 +30,18 @@ header.marquee::before{content:"";position:absolute;inset:auto 0 0 0;height:2px;
 .nova{flex:none;width:min(345px,35vw);display:flex;flex-direction:column;align-items:center;gap:10px}
 .nova img{display:block;width:100%;height:auto;filter:drop-shadow(0 0 26px rgba(124,110,255,.55)) drop-shadow(0 10px 18px rgba(0,0,0,.5))}
 .novacap{font:9px/1.4 "Press Start 2P",monospace;color:var(--amber);text-shadow:0 0 10px rgba(255,194,75,.35);letter-spacing:.03em;text-align:center}
+.swipehint{display:none}
+@media(hover:none) and (pointer:coarse){.swipehint{display:block;margin-top:6px;font:7px/1.4 "Press Start 2P",monospace;color:var(--ink-faint);letter-spacing:.08em;text-align:center;animation:swipepulse 2.2s ease-in-out infinite}}
+@keyframes swipepulse{0%,100%{opacity:.45}50%{opacity:.9}}
 .deviceswitch{display:flex;justify-content:center;margin:4px 0 9px}
-.dvbtn{font:9px/1 "Press Start 2P",monospace;color:var(--ink-faint);background:var(--panel);border:2px solid var(--line-hot);padding:9px 15px;cursor:pointer;letter-spacing:.03em;box-shadow:3px 3px 0 var(--bg-deep)}
+.dvbtn{display:inline-flex;align-items:center;gap:8px;font:9px/1 "Press Start 2P",monospace;color:var(--ink-faint);background:var(--panel);border:2px solid var(--line-hot);padding:8px 14px;cursor:pointer;letter-spacing:.03em;box-shadow:3px 3px 0 var(--bg-deep)}
+.dvbtn .dvicon{height:19px;width:auto;max-width:38px;display:block;flex:none;filter:drop-shadow(0 1px 1px rgba(0,0,0,.4))}
 .dvbtn+.dvbtn{border-left:0}
 .dvbtn[aria-pressed="true"]{color:var(--bg-deep);background:var(--amber);border-color:var(--amber);text-shadow:none}
 .dvbtn:hover{color:var(--cyan)}
 .dvbtn[aria-pressed="true"]:hover{color:var(--bg-deep)}
 .novawrap{flex:none;display:flex;flex-direction:column;align-items:center;gap:10px}
-.novastage{position:relative;display:inline-block;width:min(820px,90vw)}
+.novastage{position:relative;display:inline-block;width:min(820px,90vw);transition:transform .2s ease,opacity .2s ease;will-change:transform,opacity}
 .novaimg{display:block;width:100%;height:auto;position:relative;z-index:2}
 .clsimg{display:none;width:100%;height:auto;position:relative;z-index:2}
 body.dev-classic .novaimg{display:none}
@@ -232,10 +236,11 @@ footer{margin-top:30px;font-size:11.5px;line-height:1.7;color:var(--ink-faint)}
 </div></div>
 </div>
 <div class="deviceswitch" role="group" aria-label="Choose device">
-<button class="dvbtn" data-dev="nova" aria-pressed="true">POCKET NOVA</button>
-<button class="dvbtn" data-dev="classic" aria-pressed="false">POCKET CLASSIC</button>
+<button class="dvbtn" data-dev="nova" aria-pressed="true"><img class="dvicon" src="data:image/webp;base64,UklGRqoHAABXRUJQVlA4WAoAAAAQAAAAawAAMwAAQUxQSBMCAAABkGPbtho5TypjxGxHTr08AM6Z5oAhM7MLJmBmSJlDZijqQul/NTO3q/TfNesvSzJFETEBRERGhLyfdIrOcfLl8Eey5Ownz6ZJ3zeIzBWJY7GfTESvVgFUr0QTsV89EX3AAAZOReOxHx9LrBxEZH7HpEFrswPwzMzwKzPDa6VwcApFiMigwQkAVY8uvlW+ZABgt/rzAN5OJ5NMY+otVBXDa+WTnwcUvLJykZxBpmGehwvv/XnLx3ZJshcALp5NoMi6vgpr6O6Br22wN7i4OHxaAxgaezpZsX+rlhYw5l1ihpYuMPzr6qrcy0GFBhqTgVTWZX0MIlWrSyQDqU5bBhxAQlsuiLiJoekjVPC4ZbCmZCBZ2nLgEHkPFSKpUPkQSOUwUU6YcCsjPFwL/J9QOUyUDBOuZ4SHWwaHiK0tE0hlbR+CSNVry4ODBx0MTSmo4HFtsKYPQaTqtL0PItfSVgMOkVyoZMPEElDh0XSFOTT49kzo7elkxf6tljVhwejH7Grpha8btCiVnELL4bKGXtnc3OLf5kaGxgo2U4S2QrneuLvTzx0D8K4quDZkEEVoL6D4W8WKfwifs2cFXB9hmGREaP4LBH5+Z4QMIiKThi++71iyJllIWbJUdPJ2skbasmjZBSGEkKW8FDXlZConhJ0TQlg5KYQs5aQovy/YKVm0s2mnWJJCFktSeM3alvNw8SQigwgAVlA4IHAFAACQGwCdASpsADQAPj0aikMiIaEVum6oIAPEsgBo+BplV9a/HbmSOKI4buDkX/aecnmNukB5gP2q9WbpAP1g61X0AP139L79r/g5/bv9kPZ4iydPv+lzjn+N37bkv9b4o+4r5BqN30S89H1L/1vcE/lv9I/1f9p7R/o3frWC1vlIA4jVcDcEved3hgDx47F0zHuLIsOM/07u4ZSDHRU7OjycpAq95YU6L7AT494F+Ff1ICAbAIauTj3RUefva3exDxDXVI5zgMc92c+VsZL/89U6J209q3kzzPralihf49brOM8bZCIAAP7/k2Uw+qmSz/Ztk8gKW93YmKePeKDtGXwb5uPkSdqY4DWgbf/rsRe7u9zioZv3OO/0Zav+dDsS7dKn1ksjihY7Uh3/Sp3bZrS8bzQ/tBkhgJ+LZ2nU9/Ptwwg3tH6UH//I3kST5NVxs2mBKtLIeuAjrp3oeA8jUbpGaqt3tgiOcmiwi0Xw0/3/0b2G6Rd2AVuN6H1xk4voyMwI26w6NmJCk/wBA7QJPymBb17z1H6xP89dOyGX1sQebPL58XpiJBM3IdxDDfbBc7qUC2s+ZkW4/ElPQQZq5O7HjZglHUFI7kmJSBO3LW1O/ZWedH+jCh45+k1LcjX5C06UP2Sj0V18YYZ1FkSDITiOVuiq6PLTT/pHjOMl/9gTvpHHoE1IhDYKLsejzvMxuzKn2/0rL4vGYkXoHiTqg/4xltkacpUSW/Ho3UlzlICfW//BXPwztBKXweu/x6eEOySngK8hDHbO+C3k7leoP/eLVG+0ths67jREsl3/VFXgkOMt8U7AMt5mtaSFNcIxRVzHUBVs78PZuZNuO6KvS35Fws8voXq483V4JgrcF58+7D5xGMhRxy1h5FhO0/8j2OPFUcM21z9a8T7BFTHr//x0f96o3lc/qo973OFerfe5sCdgjf/UtJXxtdrXMGGh5WApbcQ7JbiLW9X+CNImy6P+j/fzRaRyxxmfZDb3Ptxvx+X0y4HtcET/X2+51e2VV40azuXy+NmvsJ8/HDcfwxSHjeUl9QwlCRav4DibMx3QLOUE85k2HPDJZmPo+OQCNItzeUr9FQSIoglwpfqYGZMn4Od7a1IQmcyL+cazgCe8QzNIfmm+W0kLHguvf8TFE3N9Hhv0r/M41qJyMK5FuPCNWoKx3evPAJBWZtnf3iSEKcBEjtK7zLFQDauziyFW1Nv2dSw+6Y6tO39T3aHx1qvUhG33xTB0oQbAswh6j48ENn0m7j6pv7We7x8MwlKes+9ebUc64Lw5lW2VoTz3mGSAvXSMAcPkL9qQCzxpXW2IiRuIQx+tbnybuum7xDta3EItmhhO5SuZOzn0RBgPILjJTI285IX+ssoXTQ2q1sR7IaFrv6B0JnNzjLQzf9tB97VVL5nDw0Mz803I+v8pugdrWrJGJeID8LwK/7lUH2dv5pyOLps8SKmAyBEwASqkexWa2EdKpOQJ6+htT8z6fMXNl51XWDeWF9DL1sjv8W09G9X7PCKHb41bzqmn/kU1rdPyYrkcIMij5OD3GFn8bWuMA6yhvPhJ3RAyDEI9sQTpfiTROzWCaFNUOefOl1FZe76HRmLhuq9w+zZgN7/91PZhosh1IsNDGvuYTt0Dle5bk8ExT4CHzVEKGrlDne5x9y0WMyMGeA7MFVmT38j/j/r6v7Lw1zP5KScHwn1/7SkWo9D8s9O8uX1PCDBOTmo92rAgwUTYLyzdr5UEif+XoVGrDHB/4rZfsg1TNsiULwxhb7Tiqj2uiAX9m/6eZtBxh8DEaOEZ7G424uiL37MeCVLGkVnknZmi/xBprSY6KwK34CinJ7Fsco8jydjxqqlkAAA=" alt=""><span>POCKET NOVA</span></button>
+<button class="dvbtn" data-dev="classic" aria-pressed="false"><img class="dvicon" src="data:image/webp;base64,UklGRrADAABXRUJQVlA4WAoAAAAQAAAAIQAAMwAAQUxQSJsAAAANgJpt27Llut/3/3HZwGdhD2/a6CQ61SdgCxoD0Ekkd3hunOeNkCJiAuSRMYtsl9MnMXY4CshJnM1eeJOogHJKzExv0414FelVAw9E56UnL17LMwhEvpH5X+00fVHouEkJbgcR+eYaKo3rK72tBu6wGgV/3FYjQ6WtO6/c9auJbmBnyaE0d56OqMcnq+SLDWqU5bo+KKXY51uUZwBWUDgg7gIAAPAPAJ0BKiIANAA+PRyKRKIhiVpmEAHiWwAtG14/lf4zdcM8XnH5Oc/++Xzo42tAB5jf0o/aP3jPwz9wG8c+g75YX63fDd+3PpAPI3rEmd76X9Ez/F/azyJv63KFZNtKtSluPCj6VVS5iP4Id9eEOX/zQE9Pd+OH6AGXyXctJqw+3F2yue1wzkgA/vuhYvP/+srf+f7/1vK/5i8ors+L5klG4+y3vAtvpbmb6eji36z0iGsQNV6nKeb/0YD6nWZNUr9mzfse+QoXJnPAD/HZ+JjM+HJ62zKSuBjo1Q+Rk23KTIFbdDTkP/48Z+P/o3PTWtX/o790xZnnBhPMS5pypp+//7yE0tfeU3wdbaX7F6SC+bswvSN8FuKRyHNcP/94hLf/R385GPc2BSgu2xJ1IR0Pf/MXz/6Y7l+P0AzXY//I/l/ipdWV6C4n7HGuCEu7g/7hG/CUKzuItU3yvDr4z2ZvsPS4e3eW63ginhhR0zdjHaBUWJKn+/gBaqtexUbFsDYL2Sxzz5RKAD5plhPWx/tz5FxDwfyC6pw4CXjnuBUJdXwBHPr/x2P/DGXYEJvaR50QX/jIFdbJVsPYBIIBwgzg1O4UiDrc/DVUIy0gp/35wYvHU8QV1p0QL5en8oi/8gF8Rw2gpi7NfxJD/HZjJ8b3GRczHhXj6/wlf9IBSdSQ13yVw5ZJV2XBOQ+ksR1O8sXq25TO3Zq3dNcXM+TVPwc0mLyrn3l64bWXkH2ms8qMO1T5X17n52vQ7etspi9p9QWR8URBnoPq4VuX7QD52KzCpKppcH777Oybx3HF8GJMqh/15MoRFe+bpG6F8iCSoIZElGsg/Jpu2Un6VaMZzmVnyMCRppXmr3tNd//xi/BAr9ZzpFgV9IwbwWyga4N40P0Jh3AqVfKPsPgJ4sn4iEOW3VrDdWd/rAYcz90BJeVZcXjHNeFJb2OyBYKec5dtReis7/R2EZLcimJtGjD8a07MWliF4jFsmMgPYAAAAA==" alt=""><span>POCKET CLASSIC</span></button>
 </div>
 <span class="novacap" id="edition">&mdash; POCKET NOVA EDITION &mdash;</span>
+<span class="swipehint">&#8249;&#8249; SWIPE TO SWITCH &#8250;&#8250;</span>
 </div>
 </div></header>
 
@@ -1162,7 +1167,47 @@ function setDevice(dev){
   applyFilter();
   if(window.__rollPick)window.__rollPick();
 }
-dvbtns.forEach(b=>b.addEventListener('click',()=>setDevice(b.dataset.dev)));
+const DEVLIST=['nova','classic'];
+let _animBusy=false;
+function animateSwitch(dev,dir){
+  if(dev===curDevice||_animBusy){return;}
+  const stage=document.querySelector('.novastage');
+  if(!stage){setDevice(dev);return;}
+  _animBusy=true;
+  stage.style.transition='transform .17s ease,opacity .17s ease';
+  stage.style.transform='translateX('+(-dir*36)+'%)';
+  stage.style.opacity='0';
+  setTimeout(()=>{
+    setDevice(dev);
+    stage.style.transition='none';
+    stage.style.transform='translateX('+(dir*36)+'%)';
+    stage.style.opacity='0';
+    requestAnimationFrame(()=>requestAnimationFrame(()=>{
+      stage.style.transition='transform .22s ease,opacity .22s ease';
+      stage.style.transform='translateX(0)';
+      stage.style.opacity='1';
+      setTimeout(()=>{stage.style.transition='';stage.style.transform='';stage.style.willChange='';_animBusy=false;},240);
+    }));
+  },175);
+}
+function switchTo(dev){const dir=DEVLIST.indexOf(dev)>DEVLIST.indexOf(curDevice)?1:-1;animateSwitch(dev,dir);}
+dvbtns.forEach(b=>b.addEventListener('click',()=>switchTo(b.dataset.dev)));
+
+// ---- swipe between consoles (touch) ----
+const swipeZone=document.querySelector('header.marquee');
+if(swipeZone){
+  let sx=0,sy=0,stime=0,track=false;
+  swipeZone.addEventListener('touchstart',e=>{if(e.touches.length!==1){track=false;return;}sx=e.touches[0].clientX;sy=e.touches[0].clientY;stime=Date.now();track=true;},{passive:true});
+  swipeZone.addEventListener('touchend',e=>{
+    if(!track)return;track=false;
+    const dx=e.changedTouches[0].clientX-sx,dy=e.changedTouches[0].clientY-sy;
+    if(Date.now()-stime>800)return;
+    if(Math.abs(dx)<45||Math.abs(dx)<Math.abs(dy)*1.3)return;
+    const i=DEVLIST.indexOf(curDevice);
+    if(dx<0&&i<DEVLIST.length-1)animateSwitch(DEVLIST[i+1],1);
+    else if(dx>0&&i>0)animateSwitch(DEVLIST[i-1],-1);
+  },{passive:true});
+}
 
 // ---- init ----
 let _sv='gallery';try{_sv=localStorage.getItem('rl_disp')||'gallery';}catch(e){}
