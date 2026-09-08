@@ -68,7 +68,7 @@ body.dev-classic .stext .stat b{font-family:"Luckiest Guy","VT323",monospace;fon
 .stext .stats{display:flex;gap:5.6cqw;margin-top:.5cqw;flex-wrap:wrap;justify-content:center}
 .stext .stat{font:2.5cqw/1.4 "Press Start 2P",monospace;color:var(--ink-faint)}
 .stext .stat b{display:block;font:400 11cqw/0.82 "VT323",monospace;color:var(--amber);text-shadow:0 0 1.2cqw rgba(255,194,75,.4);font-variant-numeric:tabular-nums;margin-bottom:.3cqw}
-@media(max-width:760px){.novastage{width:100%;max-width:600px}}
+@media(max-width:760px){.novastage{width:min(600px,calc(100vw - 44px))}}
 .hero{flex:none;align-self:flex-end}
 .hero img{display:block;height:var(--nh);width:auto;image-rendering:auto;filter:drop-shadow(0 0 20px rgba(255,120,60,.5)) drop-shadow(0 8px 14px rgba(0,0,0,.55))}
 @media(prefers-reduced-motion:no-preference){.hero img{animation:bob 4.5s ease-in-out infinite}@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}}
